@@ -6,7 +6,7 @@
 
         <title>Juana Bonita</title>
 
-        <!--link rel="icon" href="./../images/juana_favicon.png"-->
+        <link rel="icon" href="images/juana-bonita-favicon.png">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
