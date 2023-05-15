@@ -46,9 +46,12 @@ export default {
 <template>
   <div class="min-h-screen flex items-center">
     <div class="max-w-[800px] mx-auto p-8 flex-1">
-      <header class="mb-3">
-        <h1 class="text-2xl mb-10">Iniciar sesión</h1>
+      <header class="mb-10 text-center">
+        <img class="max-w-full" src="images/juana-bonita-logo.png">
       </header>
+
+      <h2 class="text-2xl mb-10">Iniciar sesión</h2>
+
       <form @submit.prevent="login" class="grid grid-flow-row gap-6">
 
         <div class="grid gap-1">

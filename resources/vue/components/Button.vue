@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-  <button :disabled="loading" :class="{'cursor-progress': loading}" class="disabled:opacity-75 bg-primary py-2 text-on-primary rounded-md text-md shadow-lg flex items-center justify-center">
+  <button :disabled="loading" :class="{'cursor-progress': loading}" class="disabled:opacity-75 bg-primary py-2 text-on-primary rounded-md text-lg shadow-lg flex items-center justify-center">
 
     <svg v-if="loading" class="animate-spin h-5 w-5 text-on-primary me-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
