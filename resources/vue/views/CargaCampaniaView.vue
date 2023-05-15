@@ -17,11 +17,11 @@ export default {
   },
   async created(){
     try {
-      const response = await axios.get(`/api/articulo/${this.router.params.id}`);
+      const response = await axios.get(`/api/articulo?id_web_campanias=${this.$route.params.id}`);
       this.articulos = response.data;
       
     } catch (error) {
-      
+      console.log(error);
     }
   },
   data() {
@@ -50,16 +50,7 @@ export default {
       </div>
     </header>
     <main>
-      qwepoiquwpeoiquwepou
-      <div id="campanias" class="p-4 space-y-7">
-        <div v-for="campania in campanias" class="text-2xl bg-surface text-on-surface p-4 rounded-md flex items-center">
-          <div class="text-on-primary-container">
-            <h2 class="text-sm font-bold mb-2">Campaña {{ campania }}</h2>
-            <small class="text-xs">Desde 5 de Dic hasta 20 de Enero</small>
-          </div>
-          <custom-button class="ms-auto text-xs bg-secondary text-on-secondary">Seleccionar</custom-button>
-        </div>
-      </div>
+      qwepoiquwpeoiquwepouqweqwe
     </main>
   </section>
 </template>

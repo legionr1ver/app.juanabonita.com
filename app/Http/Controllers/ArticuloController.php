@@ -12,8 +12,8 @@ class ArticuloController extends Controller
      */
     public function index(Request $request)
     {
-        if( $request->has('id_tab_campania') ){
-            return Articulo::where('id_web_campanias',$request->id_tab_campania);
+        if( $request->has('id_web_campanias') ){
+            return Articulo::where('id_web_campanias',$request->id_web_campanias)->get();
         }else{
             return Articulo::all();
         }

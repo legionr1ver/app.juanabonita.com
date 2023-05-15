@@ -18,7 +18,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to,from) => {
-  if( to.name === 'login' && global.user !== null ) return {name:'carga'};
+  if( to.name === 'login' && global.user !== null ) return false;
   if( to.name !== 'login' && global.user === null ) return {name:'login'};
 });
 
