@@ -4,19 +4,21 @@ import { createRouter, createWebHistory } from 'vue-router';
 import global from './global';
 import App from './../vue/App.vue';
 import LoginView from './../vue/views/LoginView.vue';
-import CargaPedidosView from './../vue/views/CargaPedidosView.vue';
+import CargaView from './../vue/views/CargaView.vue';
+import CargaCampaniaView from './../vue/views/CargaCampaniaView.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', redirect: { name: 'login' } },
     { path: '/login', name: 'login', component: LoginView },
-    { path: '/pedidos/carga', name: 'pedidos-carga', component: CargaPedidosView },
+    { path: '/carga', name: 'carga', component: CargaView },
+    { path: '/carga/:campania', name: 'carga.campania', component: CargaCampaniaView },
   ],
 });
 
 router.beforeEach((to,from) => {
-  if( to.name === 'login' && global.user !== null ) return {name:'pedidos-carga'};
+  if( to.name === 'login' && global.user !== null ) return {name:'carga'};
   if( to.name !== 'login' && global.user === null ) return {name:'login'};
 });
 

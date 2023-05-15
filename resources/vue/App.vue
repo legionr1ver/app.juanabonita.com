@@ -17,7 +17,7 @@ export default {
       if( this.global.user === null ){
         this.$router.push({name:'login'});
       }else{
-        this.$router.push({name:'pedidos-carga'});
+        this.$router.push({name:'carga'});
       }
 
     } catch (error) {
