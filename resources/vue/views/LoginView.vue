@@ -46,8 +46,8 @@ export default {
 <template>
   <div class="min-h-screen flex items-center">
     <div class="max-w-[800px] mx-auto p-8 flex-1">
-      <header class="mb-10 text-center">
-        <img class="max-w-full" src="images/juana-bonita-logo.png">
+      <header class="mb-10">
+        <img class="max-w-full mx-auto" src="images/juana-bonita-logo.png">
       </header>
 
       <h2 class="text-2xl mb-10">Iniciar sesión</h2>
