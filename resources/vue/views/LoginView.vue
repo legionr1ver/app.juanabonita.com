@@ -30,9 +30,10 @@ export default {
         const rUser = await axios.get('/api/user');
         this.global.user = rUser.data;
 
-        this.$router.push({name: 'pedidos-carga'});
+        this.$router.push({name: 'carga'});
 
       } catch (error) {
+        console.log(error);
         this.error = error.response.data.message;
 
       } finally {

@@ -13,7 +13,7 @@ const router = createRouter({
     { path: '/', redirect: { name: 'login' } },
     { path: '/login', name: 'login', component: LoginView },
     { path: '/carga', name: 'carga', component: CargaView },
-    { path: '/carga/:campania', name: 'carga.campania', component: CargaCampaniaView },
+    { path: '/carga/:id', name: 'carga.campania', component: CargaCampaniaView },
   ],
 });
 

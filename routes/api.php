@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CampaniaController;
+use App\Http\Controllers\ArticuloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,14 @@ use App\Http\Controllers\CampaniaController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->group(function(){
 
-Route::get('/campanias/habilitadas', [CampaniaController::class, 'habilitadas']);
+    Route::get('/user',function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('/campania/{id}', [CampaniaController::class, 'index']);
+    Route::get('/campanias-habilitadas', [CampaniaController::class, 'habilitadas']);
+
+    Route::get('/articulo', [ArticuloController::class, 'index']);
+});

@@ -15,10 +15,19 @@ export default {
     CustomButton: Button,
     FontAwesomeIcon,
   },
-  created(){},
+  async created(){
+    try {
+      const response = await axios.get(`/api/articulo/${this.router.params.id}`);
+      this.articulos = response.data;
+      
+    } catch (error) {
+      
+    }
+  },
   data() {
     return {
-      
+      global,
+      articulos: [],
     }
   },
   methods: {
