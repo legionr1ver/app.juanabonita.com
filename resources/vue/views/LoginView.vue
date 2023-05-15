@@ -63,7 +63,7 @@ export default {
           <!--p>Algun error</p-->
         </div>
 
-        <p v-if="error" class="px-4 py-2 bg-red-300 rounded-md text-red-900 font-bold">{{ error }}</p>
+        <p v-if="error" class="px-4 py-2 bg-error-container text-on-error-container rounded-md text-sm">{{ error }}</p>
 
         <custom-button :loading="loading" type="submit">Ingresar</custom-button>
       </form>
