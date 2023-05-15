@@ -14,11 +14,14 @@ export default {
       email: 'yesicaaltamira08@gmail.com',
       password: 'del1al6',
       error: '',
+      loading: false,
     }
   },
   methods: {
     async login(){
       try {
+        this.loading = true;
+
         const response = await axios.post('/login',{
           mail: this.email,
           password: this.password,
@@ -31,6 +34,9 @@ export default {
 
       } catch (error) {
         this.error = error.response.data.message;
+
+      } finally {
+        this.loading = false;
       }
     },
   },
@@ -39,15 +45,27 @@ export default {
 
 <template>
   <div class="min-h-screen flex items-center">
-    <div class="max-w-[800px] mx-auto p-3 flex-1">
+    <div class="max-w-[800px] mx-auto p-8 flex-1">
       <header class="mb-3">
-        <h1 class="text-4xl text-center">Iniciar Sesión</h1>
+        <h1 class="text-2xl mb-10">Iniciar sesión</h1>
       </header>
-      <form @submit.prevent="login" class="grid grid-flow-row gap-4">
-        <custom-input v-model="email" type="text" required />
-        <custom-input v-model="password" type="password" required />
+      <form @submit.prevent="login" class="grid grid-flow-row gap-6">
+
+        <div class="grid gap-1">
+          <label for="email" class="text-sm text-outline">Email</label>
+          <custom-input id="email" v-model="email" type="text" required />
+          <!--p>Algun error</p-->
+        </div>
+
+        <div class="grid gap-1">
+          <label for="password" class="text-sm text-outline">Password</label>
+          <custom-input id="password" v-model="password" type="password" required />
+          <!--p>Algun error</p-->
+        </div>
+
         <p v-if="error" class="px-4 py-2 bg-red-300 rounded-md text-red-900 font-bold">{{ error }}</p>
-        <custom-button type="submit">Ingresar</custom-button>
+
+        <custom-button :loading="loading" type="submit">Ingresar</custom-button>
       </form>
     </div>
   </div>

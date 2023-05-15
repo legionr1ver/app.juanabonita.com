@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" class="p-2 border border-solid border-gray-400 rounded-md">
+  <input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" class="p-2 border border-solid border-outline rounded-md text-outline">
 </template>
 
 <style></style>

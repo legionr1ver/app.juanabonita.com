@@ -6,7 +6,23 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary': '#984061',
+        'on-primary': '#ffffff',
+        'primary-container': '#ffd9e2',
+        'on-primary-container': '#3e001d',
+        'secondary': '#74565f',
+        'on-secondary': '#ffffff',
+        'secondary-container': '#ffd9e2',
+        'on-secondary-container': '#2b151c',
+        'surface': '#fffbff',
+        'on-surface': '#201a1b',
+        'surface-variant': '#f2dde2',
+        'on-surface-variant': '#514347',
+        'outline': '#837377',
+      },
+    },
   },
   plugins: [],
 }
