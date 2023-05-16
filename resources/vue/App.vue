@@ -51,7 +51,13 @@ export default {
 
 <template>
   <template v-if="!loading">
-    <router-view v-if="!error"></router-view>
+
+    <template v-if="!error">
+      <router-view name="HeaderView"></router-view>
+      <router-view name="NavView"></router-view>
+      <router-view></router-view>
+    </template>
+
     <p v-else>Ocurrio un error: {{ this.error }}</p>
   </template>
 </template>
