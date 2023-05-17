@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Articulo;
+use App\Models\ArticuloTipo;
 use Illuminate\Http\Request;
 
-class ArticuloController extends Controller
+class ArticuloTipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ArticuloController extends Controller
             'id_web_campanias' => 'required',
         ]);
 
-        return Articulo::select('descripcion','tipo_venta','cod11','precio','feria','cuotas')->where('id_web_campanias',$request->id_web_campanias)->get();
+        return ArticuloTipo::select('descripcion','codigo_tipo')->where('id_tab_campanias',$request->id_web_campanias)->get();
     }
 
     /**
@@ -30,7 +30,7 @@ class ArticuloController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Articulo $articulo)
+    public function show(ArticuloTipo $articuloTipo)
     {
         //
     }
@@ -38,7 +38,7 @@ class ArticuloController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Articulo $articulo)
+    public function update(Request $request, ArticuloTipo $articuloTipo)
     {
         //
     }
@@ -46,7 +46,7 @@ class ArticuloController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Articulo $articulo)
+    public function destroy(ArticuloTipo $articuloTipo)
     {
         //
     }

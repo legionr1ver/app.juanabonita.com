@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CampaniaController;
 use App\Http\Controllers\ArticuloController;
+use App\Http\Controllers\ArticuloTipoController;
+use App\Http\Controllers\ArticuloColorController;
+use App\Http\Controllers\ArticuloTalleController;
+use App\Http\Controllers\PedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +30,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/campanias-habilitadas', [CampaniaController::class, 'habilitadas']);
 
     Route::get('/articulo', [ArticuloController::class, 'index']);
+    Route::get('/tipo', [ArticuloTipoController::class, 'index']);
+    Route::get('/color', [ArticuloColorController::class, 'index']);
+    Route::get('/talle', [ArticuloTalleController::class, 'index']);
+
+    Route::post('/pedido', [PedidoController::class, 'store']);
 });

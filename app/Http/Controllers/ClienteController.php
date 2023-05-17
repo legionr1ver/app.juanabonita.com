@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Articulo;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
-class ArticuloController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $request->validate([
-            'id_web_campanias' => 'required',
-        ]);
-
-        return Articulo::select('descripcion','tipo_venta','cod11','precio','feria','cuotas')->where('id_web_campanias',$request->id_web_campanias)->get();
+        //
     }
 
     /**
@@ -30,7 +26,7 @@ class ArticuloController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Articulo $articulo)
+    public function show(Cliente $cliente)
     {
         //
     }
@@ -38,7 +34,7 @@ class ArticuloController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Articulo $articulo)
+    public function update(Request $request, Cliente $cliente)
     {
         //
     }
@@ -46,7 +42,7 @@ class ArticuloController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Articulo $articulo)
+    public function destroy(Cliente $cliente)
     {
         //
     }
