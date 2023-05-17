@@ -28,6 +28,8 @@ export default {
       cantidad: 1,
       itemKey: 0, // Solo para agregar al :key dentro del TransitionGroup 
       pedido: [],
+
+      errorMessage: null,
     }
   },
   async created(){
@@ -131,10 +133,11 @@ export default {
         this.talle = '';
         this.cantidad = 1;
 
-        this.$refs.dialog.close();
-
       } catch (error) {
-        console.log(error);
+        this.errorMessage = error.response.data.message;
+
+      }finally {
+        this.$refs.dialog.close();
       }
     }
   },
@@ -164,6 +167,10 @@ export default {
 
       <h2>Campaña {{ $route.params.id }}</h2>
     </header>
+
+    <p v-if="errorMessage" class="mx-5 mb-5 py-2 px-4 bg-error-container text-on-error-container rounded-lg border-solid border-error border">
+      {{ errorMessage }}
+    </p>
 
     <h3 class="px-5 mb-1 text-md">Nuevo Artículo</h3>
 
