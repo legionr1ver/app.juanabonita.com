@@ -4,10 +4,10 @@ import Button from './../components/Button.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { faCircleCheck, faImage, faFloppyDisk } from '@fortawesome/free-regular-svg-icons'
+import { faCircleCheck, faImage, faFloppyDisk, faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faAngleLeft,faTrash,faCircleCheck,faImage,faFloppyDisk);
+library.add(faAngleLeft,faTrash,faCircleCheck,faImage,faFloppyDisk,faCircleXmark);
 
 export default {
   components: {
@@ -29,7 +29,8 @@ export default {
       itemKey: 0, // Solo para agregar al :key dentro del TransitionGroup 
       pedido: [],
 
-      errorMessage: null,
+      successMessage: '',
+      errorMessage: '',
     }
   },
   async created(){
@@ -115,6 +116,8 @@ export default {
     },
     async guardar(){
       try {
+        this.successMessage = '';
+        this.errorMessage = '';
         this.$refs.dialog.showModal();
 
         await axios.post('/api/pedido', {
@@ -132,6 +135,8 @@ export default {
         this.color = '';
         this.talle = '';
         this.cantidad = 1;
+
+        this.successMessage = 'Pedido guardado.';
 
       } catch (error) {
         this.errorMessage = error.response.data.message;
@@ -168,8 +173,22 @@ export default {
       <h2>Campaña {{ $route.params.id }}</h2>
     </header>
 
-    <p v-if="errorMessage" class="mx-5 mb-5 py-2 px-4 bg-error-container text-on-error-container rounded-lg border-solid border-error border">
-      {{ errorMessage }}
+    <p v-if="successMessage" class="flex mx-5 mb-5 py-2 px-4 bg-green-200 text-green-950 rounded-lg border-solid border-green-950 border">
+      <div class="flex-1">
+        {{ successMessage }}
+      </div>
+      <div class="flex-initial flex items-center">
+        <font-awesome-icon class="w-5 h-5" :icon="['far', 'circle-check']" />
+      </div>
+    </p>
+
+    <p v-if="errorMessage" class="flex mx-5 mb-5 py-2 px-4 bg-error-container text-on-error-container rounded-lg border-solid border-error border">
+      <div class="flex-1">
+        {{ errorMessage }}
+      </div>
+      <div class="flex-initial flex items-center">
+        <font-awesome-icon class="w-5 h-5" :icon="['far', 'circle-xmark']" />
+      </div>
     </p>
 
     <h3 class="px-5 mb-1 text-md">Nuevo Artículo</h3>
@@ -207,7 +226,7 @@ export default {
 
     <p v-if="pedido.length === 0" class="px-5 text-center font-bold">No hay ningún artículo seleccionado.</p>
 
-    <TransitionGroup v-else name="list" tag="ul" class="mx-5 py-2 bg-surface text-on-surface space-y-4 divide-y-2">
+    <TransitionGroup name="list" tag="ul" class="mx-5 py-2 bg-surface text-on-surface space-y-4 divide-y-2">
       <li v-for="(item,index) in pedido" :key="item.key">
         <div class="flex mb-1">
           <span class="flex-1 p-1">{{ item.articulo.cod11 }}-{{ item.articulo.descripcion }}</span>
