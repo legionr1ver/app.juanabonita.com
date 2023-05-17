@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import global from './global';
 import App from './../vue/App.vue';
 import HeaderView from './../vue/views/HeaderView.vue';
+import NavView from './../vue/views/NavView.vue';
 import LoginView from './../vue/views/LoginView.vue';
 import CargaView from './../vue/views/CargaView.vue';
 import CargaCampaniaView from './../vue/views/CargaCampaniaView.vue';
@@ -14,8 +15,8 @@ const router = createRouter({
   routes: [
     { path: '/', redirect: { name: 'login' } },
     { path: '/login', name: 'login', component: LoginView },
-    { path: '/carga', name: 'carga', components: { default: CargaView, HeaderView } },
-    { path: '/carga/:id', name: 'carga.campania', components: { default: CargaCampaniaView, HeaderView } },
+    { path: '/carga', name: 'carga', components: { default: CargaView, NavView, HeaderView } },
+    { path: '/carga/:id', name: 'carga.campania', components: { default: CargaCampaniaView, NavView, HeaderView } },
   ],
 });
 

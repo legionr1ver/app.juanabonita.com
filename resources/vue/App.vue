@@ -5,6 +5,7 @@ export default {
   data(){
     return {
       global,
+      navVisible: false,
       loading: true,
       error: false,
     };
@@ -53,8 +54,8 @@ export default {
   <template v-if="!loading">
 
     <template v-if="!error">
-      <router-view name="HeaderView"></router-view>
       <router-view name="NavView"></router-view>
+      <router-view name="HeaderView"></router-view>
       <router-view></router-view>
     </template>
 

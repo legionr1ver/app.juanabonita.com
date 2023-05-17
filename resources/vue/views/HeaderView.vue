@@ -18,6 +18,14 @@ export default {
       global,
     };
   },
+  mounted(){
+    document.addEventListener('click', e => {
+
+      if( !document.getElementById('navToggler').contains(e.target) && !document.getElementById('nav').contains(e.target) ){
+        this.global.navVisible = false;
+      }
+    });
+  },
   methods: {
     async logout(){
       try {
@@ -35,7 +43,7 @@ export default {
 
 <template>
   <header class="flex items-center text-2xl bg-primary-container px-4 py-2 mb-5">
-    <custom-button class="me-3">
+    <custom-button id="navToggler" @click="global.navVisible = true" class="me-3">
       <font-awesome-icon :icon="['fas', 'bars']" />
     </custom-button>
     <div class="text-on-primary-container">
