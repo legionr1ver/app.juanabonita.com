@@ -50,11 +50,11 @@ export default {
           <font-awesome-icon class="p-2 me-2" :icon="['fas', 'house']" />
           Home
         </li>
-        <li class="flex items-center hover:text-gray-300 cursor-pointer">
+        <li class="text-gray-400 flex items-center cursor-not-allowed">
           <font-awesome-icon class="p-2 me-2" :icon="['fas', 'shirt']" />
           Pedidos
         </li>
-        <li class="flex items-center hover:text-gray-300 cursor-pointer">
+        <li class="text-gray-400 flex items-center cursor-not-allowed">
           <font-awesome-icon class="p-2 me-2" :icon="['fas', 'inbox']" />
           Comunidad
         </li>
