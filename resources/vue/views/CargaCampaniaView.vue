@@ -113,6 +113,8 @@ export default {
       this.color = '';
       this.talle = '';
       this.cantidad = 1;
+
+      document.getElementById('codigo').focus();
     },
     async guardar(){
       try {
@@ -207,7 +209,7 @@ export default {
     </datalist>
 
     <form @submit.prevent="agregarArticulo" class="grid gap-1 px-5 mb-8">
-      <custom-input autofocus ref="codigo" v-model.trim="codigo" autocomplete="off" list="codigos" id="codigo" type="text" placeholder="Codigo" required />
+      <custom-input autofocus v-model.trim="codigo" autocomplete="off" list="codigos" id="codigo" type="text" placeholder="Codigo" required />
       <custom-input v-model.trim="tipo" autocomplete="off" list="tipos" id="tipo" type="text" placeholder="Tipo" required />
       <custom-input v-model.trim="color" autocomplete="off" list="colores" id="color" type="text" placeholder="Color" required />
       <custom-input v-model.trim="talle" autocomplete="off" list="talles" id="talle" type="text" placeholder="Talle" required />
