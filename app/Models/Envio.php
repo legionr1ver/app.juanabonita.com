@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Envio;
-use App\Models\PedidoItem;
 
-class Pedido extends Model
+class Envio extends Model
 {
     use HasFactory;
 
@@ -16,14 +14,14 @@ class Pedido extends Model
      *
      * @var string
      */
-    protected $table = 'web_pedidos';
+    protected $table = 'web_envios';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'id_web_pedidos';
+    protected $primaryKey = 'id_web_envios';
 
     /**
      * Indicates if the model should be timestamped.
@@ -31,14 +29,4 @@ class Pedido extends Model
      * @var bool
      */
     public $timestamps = false;
-
-    public function envio()
-    {
-        return $this->belongsTo(Envio::class, 'id_web_envios', 'id_web_envios');
-    }
-
-    public function items()
-    {
-        return $this->hasMany(PedidoItem::class, 'id_web_pedidos', 'id_web_pedidos_detalle');
-    }
 }

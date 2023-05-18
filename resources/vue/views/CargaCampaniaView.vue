@@ -238,7 +238,7 @@ export default {
           <select v-model="item.tipo" class="flex-1 me-2 p-1 text-outline border border-outline border-solid rounded-md">
             <option value="normal">Normal</option>
             <option value="muestrario">Muestrario</option>
-            <option value="cuota">Cuotas</option>
+            <option value="cuotas">Cuotas</option>
           </select>
           <custom-button type="button" class="bg-secondary text-on-secondary flex-initial me-2">
             <font-awesome-icon :icon="['far', 'image']" />
