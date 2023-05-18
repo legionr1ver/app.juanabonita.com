@@ -10,6 +10,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -47,6 +48,10 @@ class FortifyServiceProvider extends ServiceProvider
 
             if( $user &&
                 password_verify($user->id_web_usuarios.$request->password, $user->password) ){
+
+                if( $user->habilitada == 0 )
+                    throw ValidationException::withMessages(['El usuario no está habilitado.']);
+
                 return $user;
             }
         });
