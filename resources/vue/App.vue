@@ -5,7 +5,6 @@ export default {
   data(){
     return {
       global,
-      navVisible: false,
       loading: true,
       error: false,
     };
@@ -26,6 +25,16 @@ export default {
     } finally {
       this.loading = false;
     }
+  },
+  mounted(){
+    document.addEventListener('unauthenticated', e => {
+      
+      if( this.$route.name === 'login' )
+        return;
+
+      this.global.user = null;
+      this.$router.push( {name:'login'} );
+    });
   },
   methods: {
     async getCsrfCookie(){
