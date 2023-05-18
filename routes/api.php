@@ -23,7 +23,12 @@ use App\Http\Controllers\PedidoController;
 Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('/user',function (Request $request) {
-        return $request->user();
+        $user = $request->user();
+        return [
+            'nombre' => $user->nombre,
+            'apellido' => $user->apellido,
+            'cliente' => $user->cliente,
+        ];
     });
 
     Route::get('/campania/{id}', [CampaniaController::class, 'index']);
