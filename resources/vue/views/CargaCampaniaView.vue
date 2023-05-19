@@ -97,14 +97,19 @@ export default {
   },
   methods: {
     agregarArticulo(){
+      this.successMessage = '';
+      this.errorMessage = '';
+
       const articulo = this.articulos.find(a => 
         a.codigo === this.codigo 
         && a.tipo === this.tipo
         && a.color === this.color
         && a.talle === this.talle);
 
-      if(!articulo)
+      if(!articulo){
+        this.errorMessage = 'No existe el articulo.';
         return;
+      }
 
       this.pedido.push({key: ++this.itemKey,articulo,cantidad: this.cantidad,tipo: 'normal'});
 
