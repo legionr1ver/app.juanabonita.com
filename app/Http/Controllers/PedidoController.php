@@ -32,6 +32,8 @@ class PedidoController extends Controller
         
         DB::transaction(function() use($request,$user){
 
+            $now = (new \DateTime('now', new \DateTimeZone('	America/Argentina/Buenos_Aires')))->format('Y-m-d H:i:s');
+
             $envio = Envio::where('id_cli_zonas',$user->cliente->id_cli_zonas)
                 ->where('id_web_campanias',$request->id_web_campanias)
                 ->whereNull('fecha_envio')
@@ -52,6 +54,7 @@ class PedidoController extends Controller
             $pedido->id_cli_clientes = $user->id_cli_clientes;
             $pedido->estado = 130;
             $pedido->id_web_campanias = $request->id_web_campanias;
+            $pedido->fecha_carga = $now;
 
             $pedido->monto = $request->collect('items')->reduce(function($carry,$i) use ($request){
                 $a = Articulo::where('cod11',$i['cod11'])->where('id_web_campanias',$request->id_web_campanias)->first();
@@ -84,6 +87,7 @@ class PedidoController extends Controller
                 $newItem->estado = 130;
                 $newItem->precio = $articulo->precio;
                 $newItem->cuotas = $item['tipo'] == 'cuotas' ? 1 : 0;
+                $newItem->fecha_alta = $now;
                 $newItem->save();
             }
         });
