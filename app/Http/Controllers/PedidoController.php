@@ -52,6 +52,16 @@ class PedidoController extends Controller
             $pedido->id_cli_clientes = $user->id_cli_clientes;
             $pedido->estado = 130;
             $pedido->id_web_campanias = $request->id_web_campanias;
+
+            $pedido->monto = $request->collect('items')->reduce(function($carry,$i) use ($request){
+                $a = Articulo::where('cod11',$i['cod11'])->where('id_web_campanias',$request->id_web_campanias)->first();
+                return $carry + ($a->precio ?? 0) * $i['cantidad'];
+            }, 0);
+
+            $pedido->unidades = $request->collect('items')->reduce(function($carry,$i){
+                return $carry + $i['cantidad'];
+            }, 0);
+
             $pedido->save();
     
             foreach( $request->items as $item )
