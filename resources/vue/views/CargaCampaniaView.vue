@@ -239,7 +239,7 @@ export default {
 
     <p v-if="pedido.length === 0" class="px-5 text-center font-bold">No hay ningún artículo seleccionado.</p>
 
-    <TransitionGroup name="list" tag="ul" class="mx-5 py-2 bg-surface text-on-surface space-y-4 divide-y-2">
+    <TransitionGroup name="list" tag="ul" class="mx-5 py-2 bg-surface text-on-surface text-sm space-y-4 divide-y-2">
       <li v-for="(item,index) in pedido" :key="item.key">
         <div class="flex mb-1">
           <span class="flex-1 p-1">{{ item.articulo.cod11 }}-{{ item.articulo.descripcion }}</span>
@@ -257,6 +257,10 @@ export default {
           <custom-button @click="pedido.splice(index,1)" type="button" class="bg-secondary text-on-secondary flex-initial">
             <font-awesome-icon :icon="['fas', 'trash']" />
           </custom-button>
+        </div>
+        <div class="flex p-2">
+          <span class="flex-1">PU: ${{ parseFloat(item.articulo.precio).toFixed(2) }}</span>
+          <span class="flex-initial ms-auto">Sub: ${{ (parseFloat(item.articulo.precio) * item.cantidad).toFixed(2) }}</span>
         </div>
       </li>
     </TransitionGroup>

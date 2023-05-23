@@ -25,8 +25,10 @@ export default {
   },
   watch: {
     async articulo(newValue, oldValue){
-      if( newValue === null )
+      if( newValue === null ){
+        URL.revokeObjectURL(this.src);
         return;
+      }
 
       try {
         this.loading = true;
