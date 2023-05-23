@@ -45,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center">
+  <div class="min-h-[100svh] flex items-center">
     <div class="max-w-[800px] mx-auto p-8 flex-1">
       <header class="mb-10">
         <img class="max-w-full mx-auto" src="images/juana-bonita-logo.png">
