@@ -1,6 +1,7 @@
 <script>
 import Input from './../components/Input.vue'
 import Button from './../components/Button.vue'
+import ModalImagenArticulo from './../components/ModalImagenArticulo.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleLeft, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -14,6 +15,7 @@ export default {
     CustomInput: Input,
     CustomButton: Button,
     FontAwesomeIcon,
+    ModalImagenArticulo,
   },
   data() {
     return {
@@ -32,7 +34,7 @@ export default {
       successMessage: '',
       errorMessage: '',
 
-      imagenArticuloSrc: `/api/imagen/codigo8/76647536`,//null,
+      articuloImagen: null,
     }
   },
   async created(){
@@ -64,9 +66,6 @@ export default {
     } catch (error) {
       console.log(error);
     }
-  },
-  mounted(){
-    this.$refs['dialog-imagen-articulo'].showModal();
   },
   computed: {
     listCodigos(){
@@ -126,10 +125,6 @@ export default {
 
       document.getElementById('codigo').focus();
     },
-    mostrarImagenArticulo(articulo){
-      this.imagenArticuloSrc = `/api/imagen/codigo8/${articulo.cod11.slice(0,8)}`;
-      this.$refs['dialog-imagen-articulo'].showModal();
-    },
     async guardar(){
       try {
         this.successMessage = '';
@@ -177,14 +172,7 @@ export default {
       </p>
     </dialog>
 
-    <dialog ref="dialog-imagen-articulo" class="relative">
-      <form class="absolute right-7 top-5 text-white text-xl" method="dialog">
-        <button>
-          <font-awesome-icon :icon="['fas', 'xmark']" />
-        </button>
-      </form>
-      <img :src="imagenArticuloSrc" alt="Foto del artículo">
-    </dialog>
+    <ModalImagenArticulo v-model:articulo="articuloImagen" />
 
     <button @click="guardar" class="fixed right-5 rounded-full bg-primary text-on-primary p-4 flex items-center justify-center text-3xl shadow">
       <font-awesome-icon :icon="['far', 'floppy-disk']" />
@@ -263,7 +251,7 @@ export default {
             <option value="muestrario">Muestrario</option>
             <option value="cuotas">Cuotas</option>
           </select>
-          <custom-button @click="mostrarImagenArticulo(item.articulo)" type="button" class="bg-secondary text-on-secondary flex-initial me-2">
+          <custom-button @click="articuloImagen = item.articulo" type="button" class="bg-secondary text-on-secondary flex-initial me-2">
             <font-awesome-icon :icon="['far', 'image']" />
           </custom-button>
           <custom-button @click="pedido.splice(index,1)" type="button" class="bg-secondary text-on-secondary flex-initial">
