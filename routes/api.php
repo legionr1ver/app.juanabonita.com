@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticuloTipoController;
 use App\Http\Controllers\ArticuloColorController;
 use App\Http\Controllers\ArticuloTalleController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\ImagenesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,5 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::post('/pedido', [PedidoController::class, 'store']);
 });
+
+Route::get('/imagen/codigo8/{codigo8}', [ImagenesController::class, 'codigo8']);

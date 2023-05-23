@@ -39,7 +39,7 @@ export default {
         <font-awesome-icon class="text-4xl" :icon="['far', 'user']" />
       </div>
       <div class="p-3 text-md flex flex-col">
-        <strong>{{ global.user.nombre }}</strong>
+        <strong class="capitalize">{{ global.user.nombre }}</strong>
         <small v-if="!global.user.cliente"></small>
         <small v-else>Zona {{ global.user.cliente.id_cli_zonas || 'Sin Zona' }} - {{ global.user.cliente.numero_cliente || 'Sin Nro Cliente' }}</small>
       </div>

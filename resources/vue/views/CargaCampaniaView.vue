@@ -3,11 +3,11 @@ import Input from './../components/Input.vue'
 import Button from './../components/Button.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faAngleLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faCircleCheck, faImage, faFloppyDisk, faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faAngleLeft,faTrash,faCircleCheck,faImage,faFloppyDisk,faCircleXmark);
+library.add(faAngleLeft,faTrash,faCircleCheck,faImage,faFloppyDisk,faCircleXmark,faXmark);
 
 export default {
   components: {
@@ -31,6 +31,8 @@ export default {
 
       successMessage: '',
       errorMessage: '',
+
+      imagenArticuloSrc: `/api/imagen/codigo8/76647536`,//null,
     }
   },
   async created(){
@@ -62,6 +64,9 @@ export default {
     } catch (error) {
       console.log(error);
     }
+  },
+  mounted(){
+    this.$refs['dialog-imagen-articulo'].showModal();
   },
   computed: {
     listCodigos(){
@@ -121,6 +126,10 @@ export default {
 
       document.getElementById('codigo').focus();
     },
+    mostrarImagenArticulo(articulo){
+      this.imagenArticuloSrc = `/api/imagen/codigo8/${articulo.cod11.slice(0,8)}`;
+      this.$refs['dialog-imagen-articulo'].showModal();
+    },
     async guardar(){
       try {
         this.successMessage = '';
@@ -166,6 +175,15 @@ export default {
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
       </p>
+    </dialog>
+
+    <dialog ref="dialog-imagen-articulo" class="relative">
+      <form class="absolute right-7 top-5 text-white text-xl" method="dialog">
+        <button>
+          <font-awesome-icon :icon="['fas', 'xmark']" />
+        </button>
+      </form>
+      <img :src="imagenArticuloSrc" alt="Foto del artículo">
     </dialog>
 
     <button @click="guardar" class="fixed right-5 rounded-full bg-primary text-on-primary p-4 flex items-center justify-center text-3xl shadow">
@@ -245,7 +263,7 @@ export default {
             <option value="muestrario">Muestrario</option>
             <option value="cuotas">Cuotas</option>
           </select>
-          <custom-button type="button" class="bg-secondary text-on-secondary flex-initial me-2">
+          <custom-button @click="mostrarImagenArticulo(item.articulo)" type="button" class="bg-secondary text-on-secondary flex-initial me-2">
             <font-awesome-icon :icon="['far', 'image']" />
           </custom-button>
           <custom-button @click="pedido.splice(index,1)" type="button" class="bg-secondary text-on-secondary flex-initial">
@@ -266,5 +284,9 @@ export default {
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+::backdrop {
+  background-color: rgba(0,0,0,0.3);
 }
 </style>
