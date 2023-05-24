@@ -54,6 +54,6 @@ class CampaniaController extends Controller
     public function habilitadas()
     {
         $user = Auth::user();
-        return Campania::where('habilitado', 1)->where('sistema',$user->sistema)->get();
+        return Campania::where('habilitado', 1)->where('sistema',$user->cliente->sistema)->get();
     }
 }
