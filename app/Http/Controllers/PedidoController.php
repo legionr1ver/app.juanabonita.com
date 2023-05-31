@@ -7,6 +7,7 @@ use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\Articulo;
 use App\Models\Envio;
+use App\Http\Requests\StorePedidoRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,12 +25,9 @@ class PedidoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePedidoRequest $request)
     {
         $user = Auth::user();
-
-        if( !$user || $user->id_cli_clientes === null )
-            throw new \Exception('No hay un cliente asociado al usuario.');
         
         DB::transaction(function() use($request,$user){
 
@@ -74,9 +72,6 @@ class PedidoController extends Controller
             foreach( $request->items as $item )
             {
                 $articulo = Articulo::where('cod11',$item['cod11'])->where('id_web_campanias',$request->id_web_campanias)->first();
-                
-                if( !$articulo )
-                    throw new \Exception("No existe el articulo {$item['cod11']} en la campaña $request->id_web_campanias.");
     
                 $newItem = new PedidoItem();
                 $newItem->id_web_pedidos = $pedido->id_web_pedidos;

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Pedido;
 
 class PedidoItem extends Model
 {
@@ -29,4 +31,12 @@ class PedidoItem extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * Obtiene el pedido al que pertenece el item
+     */
+    public function pedido(): BelongsTo
+    {
+        return $this->belongsTo(Pedido::class, 'id_web_pedidos', 'id_web_pedidos');
+    }
 }
