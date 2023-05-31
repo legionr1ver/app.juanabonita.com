@@ -4,19 +4,19 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import global from './global';
 import App from './../vue/App.vue';
-import HeaderView from './../vue/views/HeaderView.vue';
-import NavView from './../vue/views/NavView.vue';
-import LoginView from './../vue/views/LoginView.vue';
-import CargaView from './../vue/views/CargaView.vue';
-import CargaCampaniaView from './../vue/views/CargaCampaniaView.vue';
+import Header from './../vue/header/Header.vue';
+import Nav from './../vue/nav/Nav.vue';
+import Login from './../vue/login/Login.vue';
+import Carga from './../vue/carga/Carga.vue';
+import CargaCampania from './../vue/carga-campania/CargaCampania.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', redirect: { name: 'login' } },
-    { path: '/login', name: 'login', component: LoginView },
-    { path: '/carga', name: 'carga', components: { default: CargaView, NavView, HeaderView } },
-    { path: '/carga/:id', name: 'carga.campania', components: { default: CargaCampaniaView, NavView, HeaderView } },
+    { path: '/login', name: 'login', component: Login },
+    { path: '/carga', name: 'carga', components: { default: Carga, Nav, Header } },
+    { path: '/carga/:campania', name: 'carga.campania', components: { default: CargaCampania, Nav, Header } },
   ],
 });
 

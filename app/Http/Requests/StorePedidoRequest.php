@@ -51,7 +51,7 @@ class StorePedidoRequest extends FormRequest
                         return $carry + ($i['tipo'] == 'muestrario' ? $i['cantidad'] : 0);
                     }, 0);
 
-                    if( $muestrariosPedido + $muestrariosCampania > $cliente->limiteMuestrario() ){
+                    if( $muestrariosPedido > 0 && $muestrariosPedido + $muestrariosCampania > $cliente->limiteMuestrario() ){
                         $fail("El pedido excede la cantidad de muestrarios permitidos. Tiene $muestrariosCampania muestrarios en la campaña.");
                     }
                 }

@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-  <div id="nav" class="flex flex-col transition-transform duration-500 ease-in fixed top-0 bottom-0 p-12 bg-primary text-on-primary w-[300px] rounded-tr-lg rounded-br-lg"  :class="{'-translate-x-[300px]': !global.navVisible}">
+  <div v-if="global.user" id="nav" class="flex flex-col transition-transform duration-500 ease-in fixed top-0 bottom-0 p-12 bg-primary text-on-primary w-[300px] rounded-tr-lg rounded-br-lg"  :class="{'-translate-x-[300px]': !global.navVisible}">
     <div class="flex-initial flex">
       <div class="flex-initial flex items-center justify-center p-3">
         <font-awesome-icon class="text-4xl" :icon="['far', 'user']" />

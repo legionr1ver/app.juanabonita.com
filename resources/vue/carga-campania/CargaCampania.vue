@@ -1,7 +1,7 @@
 <script>
 import Input from './../components/Input.vue'
 import Button from './../components/Button.vue'
-import ModalImagenArticulo from './../components/ModalImagenArticulo.vue'
+import CargaCampaniaModalArticulo from './CargaCampaniaModalArticulo.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleLeft, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +15,7 @@ export default {
     CustomInput: Input,
     CustomButton: Button,
     FontAwesomeIcon,
-    ModalImagenArticulo,
+    CargaCampaniaModalArticulo,
   },
   data() {
     return {
@@ -40,9 +40,9 @@ export default {
   async created(){
     try {
       const [rArticulos,rTipos,rColores,rTalles] = await Promise.all([
-        axios.get(`/api/articulo?id_web_campanias=${this.$route.params.id}`),
-        axios.get(`/api/tipo?id_web_campanias=${this.$route.params.id}`),
-        axios.get(`/api/color?id_web_campanias=${this.$route.params.id}`),
+        axios.get(`/api/articulo?id_web_campanias=${this.$route.params.campania}`),
+        axios.get(`/api/tipo?id_web_campanias=${this.$route.params.campania}`),
+        axios.get(`/api/color?id_web_campanias=${this.$route.params.campania}`),
       ]);
 
       this.mapTipos = new Map( rTipos.data.map(t => [t.codigo_tipo, t.descripcion]) );
@@ -132,7 +132,7 @@ export default {
         this.$refs.dialog.showModal();
 
         await axios.post('/api/pedido', {
-          id_web_campanias: this.$route.params.id,
+          id_web_campanias: this.$route.params.campania,
           items: this.pedido.map( item => ({
             cod11: item.articulo.cod11,
             cantidad: item.cantidad,
@@ -172,7 +172,7 @@ export default {
       </p>
     </dialog>
 
-    <ModalImagenArticulo v-model:articulo="articuloImagen" />
+    <CargaCampaniaModalArticulo v-model:articulo="articuloImagen" />
 
     <button @click="guardar" class="fixed right-5 rounded-full bg-primary text-on-primary p-4 flex items-center justify-center text-3xl shadow">
       <font-awesome-icon :icon="['far', 'floppy-disk']" />
@@ -183,7 +183,7 @@ export default {
         <font-awesome-icon :icon="['fas', 'angle-left']" />
       </router-link>
 
-      <h2>Campaña {{ $route.params.id }}</h2>
+      <h2>Campaña {{ $route.params.campania }}</h2>
     </header>
 
     <p v-if="successMessage" class="flex mx-5 mb-5 py-2 px-4 bg-green-200 text-green-950 rounded-lg border-solid border-green-950 border">

@@ -5,7 +5,6 @@ export default {
   data(){
     return {
       global,
-      loading: true,
       error: false,
     };
   },
@@ -14,11 +13,8 @@ export default {
       await this.getCsrfCookie();
       this.global.user = await this.getLoggeduser();
 
-      if( this.global.user === null ){
+      if( this.global.user === null )
         this.$router.push({name:'login'});
-      }else{
-        this.$router.push({name:'carga'});
-      }
 
     } catch (error) {
       this.error = true;
@@ -63,8 +59,8 @@ export default {
   <template v-if="!loading">
 
     <template v-if="!error">
-      <router-view name="NavView"></router-view>
-      <router-view name="HeaderView"></router-view>
+      <router-view name="Nav"></router-view>
+      <router-view name="Header"></router-view>
       <router-view></router-view>
     </template>
 
