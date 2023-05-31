@@ -6,8 +6,8 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
-use App\Models\Cliente;
 use App\Models\Variable;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -57,16 +57,28 @@ class FortifyServiceProvider extends ServiceProvider
             if( password_verify($user->id_web_usuarios.$request->password, $user->password) )
                 return $user;
 
-            /*
-            $regional = Cliente::whereIsNull('id_cli_clientes')
-                ->where('region', $user->cliente->region)
-                ->where('division', $user->cliente->region)
-                ->first();
-            */
-
             $var = Variable::find('clave_maestra');
             if( $var && password_verify($request->password, $var->valor) )
                 return $user;
+
+            if( $user->cliente ){
+
+                $regional = User::whereIsNull('id_cli_clientes')
+                    ->where('region', $user->cliente->region)
+                    ->where('division', $user->cliente->division)
+                    ->first();
+
+                if( $regional && password_verify($request->password, $regional->password_m) )
+                    return $user;
+
+                $divisional = User::whereIsNull('id_cli_clientes')
+                    ->where('region', 0)
+                    ->where('division', $user->cliente->division)
+                    ->first();
+
+                if( $divisional && password_verify($request->password, $divisional->password_m) )
+                    return $user;
+            }
 
             throw ValidationException::withMessages(['Contraseña incorrecta.']);
         });
