@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campania;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\Articulo;
@@ -32,7 +33,10 @@ class PedidoController extends Controller
         
         DB::transaction(function() use($request,$user){
 
-            $now = (new \DateTime('now', new \DateTimeZone('	America/Argentina/Buenos_Aires')))->format('Y-m-d H:i:s');
+            $now = new \DateTime('now', new \DateTimeZone('America/Argentina/Buenos_Aires'));
+
+            $campania = Campania::findOrFail($request->id_web_campanias);
+            $fechaPreventa = $campania->campaniaPreventa ? $campania->campaniaPreventa->fecha->modify('+1 day') : null;
 
             $envio = Envio::where('id_cli_zonas',$user->cliente->id_cli_zonas)
                 ->where('id_web_campanias',$request->id_web_campanias)
@@ -54,7 +58,7 @@ class PedidoController extends Controller
             $pedido->id_cli_clientes = $user->id_cli_clientes;
             $pedido->estado = 130;
             $pedido->id_web_campanias = $request->id_web_campanias;
-            $pedido->fecha_carga = $now;
+            $pedido->fecha_carga = $now->format('Y-m-d H:i:s');
 
             $pedido->monto = $request->collect('items')->reduce(function($carry,$i) use ($request){
                 $a = Articulo::where('cod11',$i['cod11'])->where('id_web_campanias',$request->id_web_campanias)->first();
@@ -83,11 +87,12 @@ class PedidoController extends Controller
                 $newItem->color = $articulo->Color;
                 $newItem->talle = $articulo->Talle;
                 $newItem->cantidad = $item['cantidad'];
+                $newItem->cantidad_preventa = $fechaPreventa === null || $now < $fechaPreventa ? $item['cantidad'] : 0;
                 $newItem->muestrario = $item['tipo'] == 'muestrario' ? 1 : null;
                 $newItem->estado = 130;
                 $newItem->precio = $articulo->precio;
                 $newItem->cuotas = $item['tipo'] == 'cuotas' ? 1 : 0;
-                $newItem->fecha_alta = $now;
+                $newItem->fecha_alta = $now->format('Y-m-d H:i:s');
                 $newItem->save();
             }
         });
