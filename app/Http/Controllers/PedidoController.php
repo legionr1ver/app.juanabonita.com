@@ -82,7 +82,9 @@ class PedidoController extends Controller
                 $newItem->color = $articulo->Color;
                 $newItem->talle = $articulo->Talle;
                 $newItem->cantidad = $item['cantidad'];
-                $newItem->cantidad_preventa = $fechaPreventa === null || $now < $fechaPreventa ? $item['cantidad'] : 0;
+                $newItem->cantidad_preventa = $articulo->tipo_venta != 10 && $articulo->tipo_venta != 20 &&  $fechaPreventa === null || $now < $fechaPreventa 
+                    ? $item['cantidad'] 
+                    : 0;
                 $newItem->muestrario = $item['tipo'] == 'muestrario' ? 1 : null;
                 $newItem->estado = 130;
                 $newItem->precio = $articulo->precio;
